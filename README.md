@@ -44,16 +44,23 @@ Esta é uma API REST para o gerenciamento de transações financeiras, como entr
 
 ---
 
-## Endpoints
+## Endpoints e Testes
 
-### **1. Criar uma Conta**
-`POST /accounts`
+Você pode usar ferramentas como Postman, Insomnia ou `curl` para testar os endpoints.
 
-**Exemplo de Requisição:**
-```json
-{
-  "name": "Conta Principal"
-}
+
+# Exemplos de Teste com curl
+
+Aqui estão exemplos de como testar todos os endpoints da API usando `curl`.
+
+---
+
+## **1. Criar uma Conta**
+### Endpoint: `POST /accounts`
+
+**Exemplo de Comando:**
+```bash
+curl -X POST http://localhost:3000/accounts -H "Content-Type: application/json" -d '{"name": "Conta Principal"}'
 ```
 
 **Exemplo de Resposta:**
@@ -67,8 +74,13 @@ Esta é uma API REST para o gerenciamento de transações financeiras, como entr
 
 ---
 
-### **2. Listar Todas as Contas**
-`GET /accounts`
+## **2. Listar Todas as Contas**
+### Endpoint: `GET /accounts`
+
+**Exemplo de Comando:**
+```bash
+curl -X GET http://localhost:3000/accounts
+```
 
 **Exemplo de Resposta:**
 ```json
@@ -88,8 +100,13 @@ Esta é uma API REST para o gerenciamento de transações financeiras, como entr
 
 ---
 
-### **3. Consultar Saldo**
-`GET /accounts/:id/balance`
+## **3. Consultar Saldo de uma Conta**
+### Endpoint: `GET /accounts/:id/balance`
+
+**Exemplo de Comando:**
+```bash
+curl -X GET http://localhost:3000/accounts/a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6/balance
+```
 
 **Exemplo de Resposta:**
 ```json
@@ -100,25 +117,13 @@ Esta é uma API REST para o gerenciamento de transações financeiras, como entr
 
 ---
 
-### **4. Criar uma Transação**
-`POST /transactions`
+## **4. Criar uma Transação**
+### Endpoint: `POST /transactions`
 
-**Exemplo de Requisição (Entrada):**
-```json
-{
-  "accountId": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
-  "type": "entrada",
-  "amount": 150.75
-}
-```
-
-**Exemplo de Requisição (Saída):**
-```json
-{
-  "accountId": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
-  "type": "saida",
-  "amount": 50.25
-}
+#### **Transação de Entrada**
+**Exemplo de Comando:**
+```bash
+curl -X POST http://localhost:3000/transactions -H "Content-Type: application/json" -d '{"accountId": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6", "type": "entrada", "amount": 150.75}'
 ```
 
 **Exemplo de Resposta:**
@@ -131,16 +136,26 @@ Esta é uma API REST para o gerenciamento de transações financeiras, como entr
 }
 ```
 
----
-
-## Testes
-Você pode usar ferramentas como Postman, Insomnia ou `curl` para testar os endpoints.
-
-**Exemplo de teste com `curl`:**
+#### **Transação de Saída**
+**Exemplo de Comando:**
 ```bash
-curl -X POST http://localhost:3000/accounts -H "Content-Type: application/json" -d '{"name": "Conta Principal"}'
+curl -X POST http://localhost:3000/transactions -H "Content-Type: application/json" -d '{"accountId": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6", "type": "saida", "amount": 50.25}'
 ```
 
+**Exemplo de Resposta:**
+```json
+{
+  "id": "y8x7w6v5-u4t3-s2r1-q0p9-o8n7m6l5k4",
+  "accountId": "a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p6",
+  "type": "saida",
+  "amount": 50.25
+}
+```
+
+---
+
+## Observação
+Certifique-se de substituir os IDs nos exemplos pelos valores gerados no seu ambiente.
 ---
 
 ## Estrutura do Projeto
