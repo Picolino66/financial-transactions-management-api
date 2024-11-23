@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, BadRequestException } from '@nestjs/common';
 import { Transaction } from './transaction.entity';
 import { AccountsService } from '../accounts/accounts.service';
 import { v4 as uuid } from 'uuid';
@@ -17,7 +17,7 @@ export class TransactionsService {
     if (type === 'saida') {
       const balance = this.accountsService.getAccountBalance(accountId);
       if (balance < amount) {
-        throw new Error('Saldo insuficiente');
+        throw new BadRequestException('Saldo insuficiente');
       }
       this.accountsService.updateBalance(accountId, -amount);
     } else {
